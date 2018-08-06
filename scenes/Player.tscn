@@ -1,17 +1,62 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scenes/Player.gd" type="Script" id=1]
+[ext_resource path="res://resources/player/Idle0.png" type="Texture" id=2]
+[ext_resource path="res://resources/player/Run0.png" type="Texture" id=3]
+[ext_resource path="res://resources/player/Run1.png" type="Texture" id=4]
+[ext_resource path="res://resources/player/Run2.png" type="Texture" id=5]
+[ext_resource path="res://resources/player/Run4.png" type="Texture" id=6]
+[ext_resource path="res://resources/player/Run3.png" type="Texture" id=7]
+[ext_resource path="res://resources/player/Run7.png" type="Texture" id=8]
+[ext_resource path="res://resources/player/Jump0.png" type="Texture" id=9]
+[ext_resource path="res://resources/player/Jump1.png" type="Texture" id=10]
+[ext_resource path="res://resources/player/Jump3.png" type="Texture" id=11]
+[ext_resource path="res://resources/player/Jump4.png" type="Texture" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 
 animations = [ {
-"frames": [  ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "default",
+"name": "idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "running",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": false,
+"name": "jump",
+"speed": 7.0
 } ]
 
-[node name="AnimatedSprite" type="AnimatedSprite" index="0"]
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 14, 28 )
+
+[node name="Player" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+SPEED = null
+GRAVITY = null
+JUMP = null
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
 
 frames = SubResource( 1 )
-animation = "default"
+animation = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( 0, 4 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
 
 
